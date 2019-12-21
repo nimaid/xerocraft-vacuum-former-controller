@@ -11,6 +11,8 @@
 
 LiquidCrystal_I2C lcd(0x3F,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 PCF8574 pcf8574(0x20); // Set i2c address
+int buttonPin = 2; //The Pin your button is attached to
+float pressLength_milliSeconds = 0;//This value will be recorded in seconds
 
 void setup()
 {
@@ -28,13 +30,20 @@ void setup()
   pcf8574.pinMode(P1, OUTPUT);
   pcf8574.pinMode(P2, OUTPUT);
   pcf8574.pinMode(P3, OUTPUT);
+
+  //Record *roughly* the tenths of seconds the button in being held down
+  while (digitalRead(buttonPin) == LOW ){ 
+
+    delay(100);  //if you want more resolution, lower this number 
+    pressLength_milliSeconds = pressLength_milliSeconds + 100;   
+
+    //display how long button is has been held
+    
+    lcd.println(pressLength_milliSeconds);
+
+  }//close while
+
   
-}
+
 
 void loop()
-{
-  pcf8574.digitalWrite(P3, HIGH);
-  delay(1000);
-  pcf8574.digitalWrite(P3, LOW);
-  delay(1000);
-}
