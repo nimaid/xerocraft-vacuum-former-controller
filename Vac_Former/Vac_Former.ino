@@ -42,6 +42,8 @@ void setup()
   
   // Turn off all relays
   set_relays(0,0,0,0,0,0,0,0);
+    // Turn on all relays
+  set_relays(1,1,1,1,1,1,1,1);
 }
 
 void loop()
